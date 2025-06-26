@@ -17,8 +17,15 @@ Ensure your local development environment has the following dependencies install
 IDPHOTO_API_ENDPOINT=your_idphoto_api_endpoint
 IDPHOTO_API_KEY=your_idphoto_api_key
 IDPHOTO_API_SECRET=your_idphoto_api_secret
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
 STRIPE_SECRET_KEY=your_stripe_secret_key
 ```
+
+## One-Click Deploy Your Own
+
+You can deploy your own version to Vercel with one click:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fprodonly%2Fpassport-photo-nextjs&env=IDPHOTO_API_ENDPOINT,IDPHOTO_API_KEY,IDPHOTO_API_SECRET,NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,STRIPE_SECRET_KEY&project-name=passport-photo-nextjs&repository-name=passport-photo-nextjs)
 
 ## Local Development
 
@@ -45,24 +52,8 @@ npm run build
 npm run start
 ```
 
-## One-Click Deployment to Vercel
-
-### Prerequisites
-
-- A [Vercel account](https://vercel.com/signup)
-- The project is hosted on GitHub, GitLab, or Bitbucket
-
-### Deployment Steps
-
-1. Log in to the [Vercel Dashboard](https://vercel.com/dashboard)
-2. Click **"Add New" → "Project"**
-3. Select the corresponding code repository — Vercel will automatically detect the Next.js project
-4. Configure the environment variables (same as those in `.env`) **(this step is important!)**
-5. Click **"Deploy"** and wait for the automatic build to complete
-
-Once deployed, Vercel will provide a public URL for your project.
-
 ## References
 
 - [Next.js Documentation](https://nextjs.org/docs) - In-depth framework features and APIs
 - [Learn Next.js](https://nextjs.org/learn) - Official interactive learning course
+- [Vercel Deploy Button](https://vercel.com/docs/deploy-button) - How to use the Vercel Deploy Button
