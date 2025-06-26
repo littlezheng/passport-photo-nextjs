@@ -1,0 +1,42 @@
+{
+  "name": "passport-photo-nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prepare": "husky",
+    "format": "prettier --write .",
+    "test:inband": "jest --runInBand --config ./src/__tests__/jest-inband.json"
+  },
+  "dependencies": {
+    "next": "15.3.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "stripe": "^18.2.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@jest/globals": "^30.0.3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/stripe": "^8.0.416",
+    "@typescript-eslint/eslint-plugin": "^8.35.0",
+    "@typescript-eslint/parser": "^8.35.0",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2",
+    "prettier": "3.6.1",
+    "tailwindcss": "^4",
+    "ts-jest": "^29.4.0",
+    "typescript": "^5"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
+}
