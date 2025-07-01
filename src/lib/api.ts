@@ -1,13 +1,24 @@
 import { NextResponse } from "next/server";
 
-const idphotoApiEndpoint = process.env.IDPHOTO_API_ENDPOINT;
+function getIdphotoApiEndpoint(): string {
+  const endpoint = process.env.IDPHOTO_API_ENDPOINT;
+  // Check if the endpoint is defined and starts with http:// or https://
+  if (endpoint?.startsWith("http://") || endpoint?.startsWith("https://")) {
+    return endpoint;
+  }
+  // Default to the US endpoint if no valid endpoint is provided
+  return "https://api-us.idphotoapp.com";
+}
+
+const IDPHOTO_API_ENDPOINT = getIdphotoApiEndpoint();
+console.log(`Current idphoto api endpoint: ${IDPHOTO_API_ENDPOINT}`);
 
 export const forwardRequest = async (
   method: string,
   path: string,
   body?: any,
 ) => {
-  const url = `${idphotoApiEndpoint}${path}`;
+  const url = `${IDPHOTO_API_ENDPOINT}${path}`;
   const options: RequestInit = {
     method,
     headers: {

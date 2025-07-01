@@ -14,7 +14,6 @@ Ensure your local development environment has the following dependencies install
 > You can also configure environment variables on the deployment platform (e.g., Vercel), so there’s no need to hard-code them in the project.
 
 ```env
-IDPHOTO_API_ENDPOINT=your_idphoto_api_endpoint
 IDPHOTO_API_KEY=your_idphoto_api_key
 IDPHOTO_API_SECRET=your_idphoto_api_secret
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
@@ -25,7 +24,7 @@ STRIPE_SECRET_KEY=your_stripe_secret_key
 
 You can deploy your own version to Vercel with one click:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fprodonly%2Fpassport-photo-nextjs&env=IDPHOTO_API_ENDPOINT,IDPHOTO_API_KEY,IDPHOTO_API_SECRET,NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,STRIPE_SECRET_KEY&project-name=passport-photo-nextjs&repository-name=passport-photo-nextjs)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fprodonly%2Fpassport-photo-nextjs&env=IDPHOTO_API_KEY,IDPHOTO_API_SECRET,NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,STRIPE_SECRET_KEY&project-name=passport-photo-nextjs&repository-name=passport-photo-nextjs)
 
 ## Local Development
 
