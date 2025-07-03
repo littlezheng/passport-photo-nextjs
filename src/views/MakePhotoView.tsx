@@ -958,6 +958,16 @@ function MakePhotoView() {
               ))}
             </div>
 
+            {constants.stripePublicKey.startsWith("pk_test") ? (
+              <p className="text-sm text-gray-600 pb-6">
+                You are using stripe test key. In test mode, you can use card
+                number 4242 4242 4242 4242 to test payment. Note: Use future
+                date as an Expiration Date
+              </p>
+            ) : (
+              <></>
+            )}
+
             <form
               id="payment-form"
               className="pb-4"
@@ -968,14 +978,16 @@ function MakePhotoView() {
                 <button
                   id="submit"
                   disabled={isConfirmingPayment}
-                  className="w-full px-4 py-2.5 flex justify-center items-center gap-2 rounded-1 fw-500 text-4 text-on-primary bg-primary hover:op-90 transition"
+                  className="w-full px-4 py-2.5 flex justify-center items-center gap-2 rounded-lg fw-500 text-4 text-on-primary bg-primary hover:op-90 transition"
                 >
                   {isConfirmingPayment ? (
                     <LoaderCircle className="h-4 w-4 animate-spin text-white" />
                   ) : (
                     <></>
                   )}
-                  <span id="button-text">Pay</span>
+                  <span id="button-text" className="text-white fw-600">
+                    Pay
+                  </span>
                 </button>
               </div>
               <p className="pt-2 text-center text-sm text-secondary-text">
@@ -983,17 +995,21 @@ function MakePhotoView() {
               </p>
             </form>
 
-            <div className="bg-blue-50 rounded-lg p-6">
-              <h4 className="font-semibold text-gray-900 mb-4 flex items-center space-x-2">
-                <MapPin className="h-5 w-5 text-blue-600" />
-                <span>Pickup Locations for Printed Photos</span>
-              </h4>
-              <div className="flex justify-center">
-                {constants.businessLocations.map((loc) => (
-                  <BusinessLocationCard key={loc.name} location={loc} />
-                ))}
+            {selectedPackage.isPickUp ? (
+              <div className="bg-blue-50 rounded-lg p-6">
+                <h4 className="font-semibold text-gray-900 mb-4 flex items-center space-x-2">
+                  <MapPin className="h-5 w-5 text-blue-600" />
+                  <span>Pickup Locations for Printed Photos</span>
+                </h4>
+                <div className="flex justify-center">
+                  {constants.businessLocations.map((loc) => (
+                    <BusinessLocationCard key={loc.name} location={loc} />
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : (
+              <></>
+            )}
 
             {error && (
               <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">

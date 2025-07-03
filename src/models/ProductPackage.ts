@@ -5,4 +5,5 @@ export interface ProductPackage {
   currency: string; // Currency code (e.g., 'usd')
   description: string[]; // List of features or services (e.g., ['2 printed photos', 'Government compliant', '10-minute service'])
   isPopular?: boolean;
+  isPickUp?: boolean;
 }

@@ -41,6 +41,7 @@ export const constants = {
       currency: "usd",
       description: ["2 printed photos (pick up)"],
       isPopular: true,
+      isPickUp: true,
     },
     {
       id: "premium",
@@ -48,6 +49,7 @@ export const constants = {
       priceCents: 1399,
       currency: "usd",
       description: ["Digital photo", "2 printed photos (pick up)"],
+      isPickUp: true,
     },
   ] satisfies ProductPackage[],
 };
