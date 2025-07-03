@@ -4,9 +4,8 @@ import type { ProductPackage } from "../models/ProductPackage";
 
 export const constants = {
   stripePublicKey: `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`,
-  studioName: "Passport Photo Fast",
-  studioDescription:
-    "Passport Photo Fast helps you get professional passport photos ready in just 10 minutes.",
+  studioName: `${process.env.NEXT_PUBLIC_STUDIO_NAME}`,
+  studioDescription: `${process.env.NEXT_PUBLIC_STUDIO_DESCRIPTION}`,
   defaultSpecCodes: [
     "us-passport",
     "us-visa",
