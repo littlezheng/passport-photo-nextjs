@@ -117,15 +117,22 @@ function MakePhotoView() {
   };
 
   const startCamera = async () => {
+    // Reset states
+    setSelectedFile(null);
+    setPreviewUrl("");
+    setProcessedPhoto(null);
+    setShowOriginal(false);
+
     try {
       const mediaStream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "user" },
+        video: true,
       });
       setStream(mediaStream);
+      setIsUsingCamera(true);
+
       if (videoRef.current) {
         videoRef.current.srcObject = mediaStream;
       }
-      setIsUsingCamera(true);
     } catch (error) {
       setError("Unable to access camera. Please check permissions.");
       console.error(error);
@@ -760,104 +767,104 @@ function MakePhotoView() {
               )}
 
               {/* Upload Options - Only show if no photo selected */}
-              {!previewUrl && (
-                <div className="space-y-4">
-                  {!isUsingCamera ? (
-                    <>
-                      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
-                        <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                        <p className="text-lg font-medium text-gray-900 mb-2">
-                          Upload a Photo
-                        </p>
-                        <p className="text-gray-600 mb-4">
-                          Choose a photo from your device
-                        </p>
-                        <input
-                          ref={fileInputRef}
-                          type="file"
-                          accept="image/*"
-                          onChange={handleFileSelect}
-                          className="hidden"
-                        />
-                        <button
-                          onClick={() => fileInputRef.current?.click()}
-                          className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-                        >
-                          Choose File
-                        </button>
-                      </div>
-
-                      <div className="text-center">
-                        <span className="text-gray-500">or</span>
-                      </div>
-
-                      <div className="text-center">
-                        <button
-                          onClick={startCamera}
-                          className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors inline-flex items-center space-x-2"
-                        >
-                          <Camera className="h-5 w-5" />
-                          <span>Take Photo with Camera</span>
-                        </button>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="text-center">
-                      <video
-                        ref={videoRef}
-                        autoPlay
-                        playsInline
-                        className="w-full max-w-md mx-auto rounded-lg mb-4"
+              <div className={`${!previewUrl ? "" : "hidden"} space-y-4`}>
+                {!isUsingCamera ? (
+                  <>
+                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
+                      <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                      <p className="text-lg font-medium text-gray-900 mb-2">
+                        Upload a Photo
+                      </p>
+                      <p className="text-gray-600 mb-4">
+                        Choose a photo from your device
+                      </p>
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileSelect}
+                        className="hidden"
                       />
-                      <canvas ref={canvasRef} className="hidden" />
-                      <div className="space-x-4">
-                        <button
-                          onClick={capturePhoto}
-                          className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-                        >
-                          Capture Photo
-                        </button>
-                        <button
-                          onClick={stopCamera}
-                          className="bg-gray-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-gray-700 transition-colors"
-                        >
-                          Cancel
-                        </button>
-                      </div>
+                      <button
+                        onClick={() => fileInputRef.current?.click()}
+                        className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                      >
+                        Choose File
+                      </button>
                     </div>
-                  )}
-                </div>
-              )}
 
-              {/* Upload Options - Show if photo selected but want to change */}
-              {previewUrl && !processedPhoto && (
-                <div className="mt-6 text-center">
-                  <p className="text-gray-600 mb-4">
-                    Want to use a different photo?
-                  </p>
-                  <div className="flex flex-col md:flex-row justify-center gap-4">
+                    <div className="text-center">
+                      <span className="text-gray-500">or</span>
+                    </div>
+
+                    <div className="text-center">
+                      <button
+                        onClick={startCamera}
+                        className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors inline-flex items-center space-x-2"
+                      >
+                        <Camera className="h-5 w-5" />
+                        <span>Take Photo with Camera</span>
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <></>
+                )}
+
+                <div className={`${isUsingCamera ? "" : "hidden"} text-center`}>
+                  <video
+                    ref={videoRef}
+                    autoPlay
+                    playsInline
+                    className="w-full max-w-md mx-auto rounded-lg mb-4"
+                  />
+                  <canvas ref={canvasRef} className="hidden" />
+                  <div className="space-x-4">
                     <button
-                      onClick={() => fileInputRef.current?.click()}
+                      onClick={capturePhoto}
+                      className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                    >
+                      Capture Photo
+                    </button>
+                    <button
+                      onClick={stopCamera}
                       className="bg-gray-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-gray-700 transition-colors"
                     >
-                      Choose Different File
-                    </button>
-                    <button
-                      onClick={startCamera}
-                      className="bg-green-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-700 transition-colors"
-                    >
-                      Use Camera
+                      Cancel
                     </button>
                   </div>
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileSelect}
-                    className="hidden"
-                  />
                 </div>
-              )}
+              </div>
+
+              {/* Upload Options - Show if photo selected but want to change */}
+              <div
+                className={`${previewUrl && !processedPhoto ? "" : "hidden"} mt-6 text-center`}
+              >
+                <p className="text-gray-600 mb-4">
+                  Want to use a different photo?
+                </p>
+                <div className="flex flex-col md:flex-row justify-center gap-4">
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    className="bg-gray-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-gray-700 transition-colors"
+                  >
+                    Choose Different File
+                  </button>
+                  <button
+                    onClick={startCamera}
+                    className="bg-green-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+                  >
+                    Use Camera
+                  </button>
+                </div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileSelect}
+                  className="hidden"
+                />
+              </div>
 
               {error && (
                 <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
