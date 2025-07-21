@@ -4,7 +4,8 @@ import { getStripeInstance } from "@/lib/stripe";
 const stripe = getStripeInstance();
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
-  const { amountInCent, currency, photoUuid } = await req.json();
+  const { amountInCent, currency, photoUuid, printedPhotoNumber } =
+    await req.json();
   if (!amountInCent || !currency || !photoUuid) {
     return NextResponse.json(
       { error: "amountInCent, currency and photoUuid are required" },
@@ -18,6 +19,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       currency: currency.toLowerCase(),
       metadata: {
         photoUuid,
+        printedPhotoNumber: printedPhotoNumber ?? 0,
       },
     });
 

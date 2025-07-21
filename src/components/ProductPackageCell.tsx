@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 import type { ProductPackage } from "../models/ProductPackage";
-import { CheckCircle, CreditCard } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import { formatPrice } from "../utils/formatPrice";
 
 interface Props {

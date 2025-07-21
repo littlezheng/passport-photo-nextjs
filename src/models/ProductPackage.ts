@@ -6,4 +6,5 @@ export interface ProductPackage {
   description: string[]; // List of features or services (e.g., ['2 printed photos', 'Government compliant', '10-minute service'])
   isPopular?: boolean;
   isPickUp?: boolean;
+  printedPhotoNumber: number;
 }

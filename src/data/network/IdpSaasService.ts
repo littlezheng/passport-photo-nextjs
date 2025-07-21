@@ -49,6 +49,7 @@ export interface CreatePaymentIntentPayload {
   amountInCent: number;
   currency: string;
   photoUuid: string;
+  printedPhotoNumber: number;
 }
 
 export interface CreatePaymentIntentResult {

@@ -39,13 +39,14 @@ import { formatPrice } from "../utils/formatPrice";
 import { compressImageFile } from "../utils/compressImage";
 import { orderRepository } from "../data/OrderRepository";
 import BusinessLocationCard from "../components/BusinessLocationCard";
-import ProductPackageCell from "../components/ProductPackageCell";
+import PhotoNumberPicker from "../components/PhotoNumberPicker";
 import type { ProductPackage } from "../models/ProductPackage";
 import { getIssueMessage } from "../utils/getIssueMessage";
 import { idpSaasService } from "../data/network/IdpSaasService";
-import { amountInCentToStripeAmount } from "../utils/amountInCentToStripeAmount";
 import type { OrderModel } from "../models/OrderModel";
 import NavItem from "../lib/nav-item";
+import { computeTotalAmount } from "@/utils/computeTotalAmount";
+import { amountInCentToStripeAmount } from "@/utils/amountInCentToStripeAmount";
 
 interface ApiResponse {
   photoUuid: string;
@@ -57,7 +58,7 @@ interface ApiResponse {
 const defaultSpecs: PhotoSpec[] = constants.defaultSpecCodes.map(
   (code) => allPhotoSpecs[code],
 );
-const defaultProductPackage: ProductPackage = constants.productPackages[0];
+const defaultProductPackage: ProductPackage = constants.productPackages[1];
 
 function MakePhotoView() {
   const searchParams = useSearchParams();
@@ -88,6 +89,8 @@ function MakePhotoView() {
   const stripe = useRef<Stripe | null>(null);
   const [isConfirmingPayment, setIsConfirmingPayment] = useState(false);
   const [paymentMessage, setPaymentMessage] = useState("");
+  const [additionalPrintedPhotoNumber, setAdditionalPrintedPhotoNumber] =
+    useState(0);
 
   const formattedPrice = formatPrice(
     selectedPackage.priceCents,
@@ -212,15 +215,22 @@ function MakePhotoView() {
 
       if (selectedPackage && stripe.current) {
         try {
-          const amount = amountInCentToStripeAmount(
-            selectedPackage.priceCents,
+          const totalAmount = computeTotalAmount(
+            selectedPackage,
+            additionalPrintedPhotoNumber,
+          );
+          const stripeAmount = amountInCentToStripeAmount(
+            totalAmount,
             selectedPackage.currency,
           );
+          const photoNumber =
+            additionalPrintedPhotoNumber + selectedPackage.printedPhotoNumber;
           await initStripeForm(
             stripe.current,
-            amount,
+            stripeAmount,
             selectedPackage.currency,
             order.orderId,
+            photoNumber,
           );
         } catch (err) {
           console.error(err);
@@ -231,30 +241,6 @@ function MakePhotoView() {
       console.error("API Error:", err);
     } finally {
       setIsProcessing(false);
-    }
-  };
-
-  const handleCheckoutBtnClick = async (pkg: ProductPackage) => {
-    // if(pkg.id === selectedPackage.id) {
-    //   console.log('Package not change, return');
-    //   return
-    // }
-    setSelectedPackage(pkg);
-
-    if (!stripe.current) {
-      console.log("stripe instance not exist, return");
-      return;
-    }
-    const photoUuid = currentOrder?.orderId;
-    if (!photoUuid) {
-      console.log("photoUuid not exist, return");
-      return;
-    }
-    try {
-      const amount = amountInCentToStripeAmount(pkg.priceCents, pkg.currency);
-      await initStripeForm(stripe.current, amount, pkg.currency, photoUuid);
-    } catch (err) {
-      console.error(err);
     }
   };
 
@@ -301,6 +287,7 @@ function MakePhotoView() {
     amount: number,
     currency: string,
     photoUuid: string,
+    printedPhotoNumber: number,
   ) => {
     try {
       // Get clientSecret
@@ -308,6 +295,7 @@ function MakePhotoView() {
         amountInCent: amount,
         currency,
         photoUuid,
+        printedPhotoNumber,
       });
 
       // Build Stripe form
@@ -326,6 +314,44 @@ function MakePhotoView() {
       paymentElement.mount("#payment-element");
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const handleAdditionalPhotoNumberUpdate = async (newVal: number) => {
+    if (newVal === additionalPrintedPhotoNumber) {
+      console.log("printedPhotoNumber not changed, return");
+      return;
+    }
+
+    setAdditionalPrintedPhotoNumber(newVal);
+
+    const orderId = currentOrder?.orderId;
+    if (!orderId) {
+      console.log("orderId is empty, return");
+      return;
+    }
+
+    if (!stripe.current) {
+      console.log("stripe instance is empty, return");
+      return;
+    }
+
+    try {
+      const totalAmount = computeTotalAmount(selectedPackage, newVal);
+      const stripeAmount = amountInCentToStripeAmount(
+        totalAmount,
+        selectedPackage.currency,
+      );
+      const photoNumber = newVal + selectedPackage.printedPhotoNumber;
+      await initStripeForm(
+        stripe.current,
+        stripeAmount,
+        selectedPackage.currency,
+        orderId,
+        photoNumber,
+      );
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -963,15 +989,14 @@ function MakePhotoView() {
             </div>
 
             {/* Purchase Options */}
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
-              {constants.productPackages.map((pkg) => (
-                <ProductPackageCell
-                  key={pkg.id}
-                  pkg={pkg}
-                  isSelected={selectedPackage.id === pkg.id}
-                  onBuyClick={(it) => handleCheckoutBtnClick(it)}
-                />
-              ))}
+            <div className="flex justify-center gap-6 mb-8">
+              <PhotoNumberPicker
+                pkg={selectedPackage}
+                additionalPhotoNumber={additionalPrintedPhotoNumber}
+                onAdditionalPhotoNumberUpdate={(v) => {
+                  handleAdditionalPhotoNumberUpdate(v);
+                }}
+              />
             </div>
 
             {constants.stripePublicKey.startsWith("pk_test") ? (

@@ -24,7 +24,7 @@ STRIPE_SECRET_KEY=your_stripe_secret_key
 
 You can deploy your own version to Vercel with one click:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fprodonly%2Fpassport-photo-nextjs&env=IDPHOTO_API_KEY,IDPHOTO_API_SECRET,NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,STRIPE_SECRET_KEY&project-name=passport-photo-nextjs&repository-name=passport-photo-nextjs)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fprodonly%2Fpassport-photo-nextjs&env=IDPHOTO_API_KEY,IDPHOTO_API_SECRET,NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,NEXT_PUBLIC_PER_ADDITIONAL_PHOTO_PRICE_IN_CENT,STRIPE_SECRET_KEY&project-name=passport-photo-nextjs&repository-name=passport-photo-nextjs)
 
 ## Local Development
 
