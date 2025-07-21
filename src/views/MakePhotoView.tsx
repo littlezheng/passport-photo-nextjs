@@ -105,15 +105,19 @@ function MakePhotoView() {
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      setSelectedFile(file);
-      const url = URL.createObjectURL(file);
-      setPreviewUrl(url);
-      // Reset processed photo when new file is selected
-      setProcessedPhoto(null);
-      // Reset show original state
-      setShowOriginal(false);
+    if (!file) {
+      return;
     }
+
+    setSelectedFile(file);
+    const url = URL.createObjectURL(file);
+    setPreviewUrl(url);
+    // Reset processed photo when new file is selected
+    setProcessedPhoto(null);
+    // Reset show original state
+    setShowOriginal(false);
+
+    processPhoto(file);
   };
 
   const startCamera = async () => {
@@ -162,6 +166,8 @@ function MakePhotoView() {
               setProcessedPhoto(null); // Reset processed photo
               setShowOriginal(false); // Reset show original state
               stopCamera();
+
+              processPhoto(file);
             }
           },
           "image/jpeg",
@@ -179,15 +185,13 @@ function MakePhotoView() {
     setIsUsingCamera(false);
   };
 
-  const processPhoto = async () => {
-    if (!selectedFile) return;
-
+  const processPhoto = async (file: File) => {
     setIsProcessing(true);
     setError("");
     setCurrentOrder(null);
 
     try {
-      const imageDataURL = await compressImageFile(selectedFile);
+      const imageDataURL = await compressImageFile(file);
 
       const order = await orderRepository.createOrder(
         selectedSpec.specCode,
@@ -702,7 +706,12 @@ function MakePhotoView() {
                         />
                       </div>
                       <button
-                        onClick={processPhoto}
+                        onClick={() => {
+                          if (!selectedFile) {
+                            return;
+                          }
+                          processPhoto(selectedFile);
+                        }}
                         disabled={isProcessing}
                         className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center space-x-2"
                       >
