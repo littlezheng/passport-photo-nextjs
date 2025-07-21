@@ -16,8 +16,9 @@ Ensure your local development environment has the following dependencies install
 ```env
 IDPHOTO_API_KEY=your_idphoto_api_key
 IDPHOTO_API_SECRET=your_idphoto_api_secret
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
 STRIPE_SECRET_KEY=your_stripe_secret_key
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+NEXT_PUBLIC_PER_ADDITIONAL_PHOTO_PRICE_IN_CENT=your_per_additional_photo_price_in_cent
 ```
 
 ## One-Click Deploy Your Own
