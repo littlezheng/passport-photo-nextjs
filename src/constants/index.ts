@@ -43,7 +43,7 @@ export const constants = {
       priceCents: 999,
       currency: "usd",
       description: ["Digital photo"],
-      // isPopular: true,
+      isPopular: true,
       isPickUp: true,
       printedPhotoNumber: 2,
     },

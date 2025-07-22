@@ -28,7 +28,7 @@ function HomeView() {
   const pricingSectionRef = useRef<HTMLDivElement | null>(null);
   const locationsSectionRef = useRef<HTMLDivElement | null>(null);
   const contactSectionRef = useRef<HTMLDivElement | null>(null);
-  const productPackage = constants.productPackages[0];
+  const productPackage = constants.productPackages[1];
   const formattedPrice = formatPrice(
     productPackage.priceCents,
     productPackage.currency,
@@ -333,7 +333,7 @@ function HomeView() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {constants.productPackages.map((pkg, index) => (
+            {[productPackage].map((pkg, index) => (
               <ProductPackageCard
                 key={pkg.id || index}
                 pkg={pkg}
