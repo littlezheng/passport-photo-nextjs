@@ -7,6 +7,8 @@ interface Props {
 }
 
 export default function BusinessLocationCard({ location }: Props): JSX.Element {
+  const hoursLines = location.hours.split("\n");
+
   return (
     <div className="bg-gray-50 rounded-xl p-8">
       {/* <h3 className="text-2xl font-semibold text-gray-900 mb-6">{location.name} Location</h3> */}
@@ -49,9 +51,9 @@ export default function BusinessLocationCard({ location }: Props): JSX.Element {
           <div>
             <p className="font-medium text-gray-900">Hours</p>
             <ul className="flex flex-col gap-1">
-              {Object.entries(location.hours).map(([k, v]) => (
-                <li key={k} className="text-gray-600">
-                  {`${k}: ${v}`}
+              {hoursLines.map((it, i) => (
+                <li key={`${i}-${it}`} className="text-gray-600">
+                  {it}
                 </li>
               ))}
             </ul>

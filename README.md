@@ -21,6 +21,8 @@ NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
 NEXT_PUBLIC_PER_ADDITIONAL_PHOTO_PRICE_IN_CENT=your_per_additional_photo_price_in_cent
 ```
 
+Find more environment variables in the `.env.development` file.
+
 ## One-Click Deploy Your Own
 
 You can deploy your own version to Vercel with one click:

@@ -58,7 +58,7 @@ interface ApiResponse {
 const defaultSpecs: PhotoSpec[] = constants.defaultSpecCodes.map(
   (code) => allPhotoSpecs[code],
 );
-const defaultProductPackage: ProductPackage = constants.productPackages[1];
+const defaultProductPackage: ProductPackage = constants.productPackages[0];
 
 function MakePhotoView() {
   const searchParams = useSearchParams();
@@ -1044,7 +1044,7 @@ function MakePhotoView() {
                 </h4>
                 <div className="flex justify-center">
                   {constants.businessLocations.map((loc) => (
-                    <BusinessLocationCard key={loc.name} location={loc} />
+                    <BusinessLocationCard key={loc.address} location={loc} />
                   ))}
                 </div>
               </div>

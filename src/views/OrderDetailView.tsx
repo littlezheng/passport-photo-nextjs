@@ -472,7 +472,7 @@ export default function OrderDetailView() {
                 </p>
                 <div className="space-y-2 text-sm">
                   {constants.businessLocations.map((loc) => (
-                    <div key={loc.name}>
+                    <div key={loc.address}>
                       <p className="font-medium text-gray-900">Location</p>
                       {loc.phone && (
                         <p className="text-gray-600">{loc.phone}</p>
@@ -496,7 +496,7 @@ export default function OrderDetailView() {
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
               {constants.businessLocations.map((loc) => (
-                <BusinessLocationCard key={loc.name} location={loc} />
+                <BusinessLocationCard key={loc.address} location={loc} />
               ))}
             </div>
           </div>

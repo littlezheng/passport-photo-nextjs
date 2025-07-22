@@ -28,7 +28,7 @@ function HomeView() {
   const pricingSectionRef = useRef<HTMLDivElement | null>(null);
   const locationsSectionRef = useRef<HTMLDivElement | null>(null);
   const contactSectionRef = useRef<HTMLDivElement | null>(null);
-  const productPackage = constants.productPackages[1];
+  const productPackage = constants.productPackages[0];
   const formattedPrice = formatPrice(
     productPackage.priceCents,
     productPackage.currency,
@@ -358,7 +358,7 @@ function HomeView() {
 
           <div className="flex justify-center">
             {constants.businessLocations.map((loc) => (
-              <BusinessLocationCard key={loc.name} location={loc} />
+              <BusinessLocationCard key={loc.address} location={loc} />
             ))}
           </div>
         </div>
@@ -466,7 +466,7 @@ function HomeView() {
               <h4 className="font-semibold mb-4">Contact Info</h4>
               <ul className="space-y-2 text-gray-400">
                 {constants.businessLocations.map((loc) => (
-                  <li key={loc.name}>{`${loc.name}: ${loc.email}`}</li>
+                  <li key={loc.address}>{`${loc.address}: ${loc.email}`}</li>
                 ))}
                 <li>Open 7 days a week</li>
               </ul>
