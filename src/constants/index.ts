@@ -22,20 +22,31 @@ export const constants = {
   ] satisfies BusinessLocation[],
   productPackages: [
     {
+      id: "basic",
+      name: "Basic",
+      priceCents: 599,
+      currency: "usd",
+      description: ["Digital photo"],
+      printedPhotoNumber: 0,
+    },
+    {
       id: "standard",
-      name: `${process.env.NEXT_PUBLIC_STANDARD_PKG_NAME}`,
-      priceCents: Number(
-        `${process.env.NEXT_PUBLIC_STANDARD_PKG_PRICE_IN_CENT}`,
-      ),
-      currency: `${process.env.NEXT_PUBLIC_STANDARD_PKG_CURRENCY}`,
-      description: `${process.env.NEXT_PUBLIC_STANDARD_PKG_DESCRIPTION}`.split(
-        "\n",
-      ),
+      name: "Standard",
+      priceCents: 999,
+      currency: "usd",
+      description: [],
       isPopular: true,
       isPickUp: true,
-      printedPhotoNumber: Number(
-        `${process.env.NEXT_PUBLIC_STANDARD_PKG_PRINTED_PHOTO_NUMBER}`,
-      ),
+      printedPhotoNumber: 2,
+    },
+    {
+      id: "premium",
+      name: "Premium",
+      priceCents: 1399,
+      currency: "usd",
+      description: ["Digital photo"],
+      isPickUp: true,
+      printedPhotoNumber: 2,
     },
   ] satisfies ProductPackage[],
   perAdditionalPhotoPriceInCent: Number(

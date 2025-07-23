@@ -11,13 +11,20 @@ Ensure your local development environment has the following dependencies install
 
 ## Environment Variables
 
-> You can also configure environment variables on the deployment platform (e.g., Vercel), so there’s no need to hard-code them in the project.
+You can also configure environment variables on the deployment platform (e.g., Vercel), so there’s no need to hard-code them in the project.
 
 ```env
+# ID Photo API credentials — used to generate ID photos.
+# Get your keys from: https://dashboard.idphoto.ai/
 IDPHOTO_API_KEY=your_idphoto_api_key
 IDPHOTO_API_SECRET=your_idphoto_api_secret
+
+# Stripe configuration — used for handling payments.
+# Get your keys from: https://dashboard.stripe.com/
 STRIPE_SECRET_KEY=your_stripe_secret_key
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+
+# Price configuration — set the cost (in cents) for each additional photo.
 NEXT_PUBLIC_PER_ADDITIONAL_PHOTO_PRICE_IN_CENT=your_per_additional_photo_price_in_cent
 ```
 
