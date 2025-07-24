@@ -23,30 +23,49 @@ export const constants = {
   productPackages: [
     {
       id: "basic",
-      name: "Basic",
-      priceCents: 599,
-      currency: "usd",
-      description: ["Digital photo"],
-      printedPhotoNumber: 0,
+      name: `${process.env.NEXT_PUBLIC_BASIC_PKG_NAME}`,
+      priceCents: Number(`${process.env.NEXT_PUBLIC_BASIC_PKG_PRICE_IN_CENT}`),
+      currency: `${process.env.NEXT_PUBLIC_BASIC_PKG_CURRENCY}`,
+      description: `${process.env.NEXT_PUBLIC_BASIC_PKG_DESCRIPTION}`
+        .split("\n")
+        .filter((it) => !!it),
+      printedPhotoNumber: Number(
+        `${process.env.NEXT_PUBLIC_BASIC_PKG_PRINTED_PHOTO_NUMBER}`,
+      ),
+      isPopular: process.env.NEXT_PUBLIC_BASIC_PKG_IS_POPULAR === "true",
+      isPickUp: process.env.NEXT_PUBLIC_BASIC_PKG_IS_PICKUP === "true",
     },
     {
       id: "standard",
-      name: "Standard",
-      priceCents: 999,
-      currency: "usd",
-      description: [],
-      isPopular: true,
-      isPickUp: true,
-      printedPhotoNumber: 2,
+      name: `${process.env.NEXT_PUBLIC_STANDARD_PKG_NAME}`,
+      priceCents: Number(
+        `${process.env.NEXT_PUBLIC_STANDARD_PKG_PRICE_IN_CENT}`,
+      ),
+      currency: `${process.env.NEXT_PUBLIC_STANDARD_PKG_CURRENCY}`,
+      description: `${process.env.NEXT_PUBLIC_STANDARD_PKG_DESCRIPTION}`
+        .split("\n")
+        .filter((it) => !!it),
+      printedPhotoNumber: Number(
+        `${process.env.NEXT_PUBLIC_STANDARD_PKG_PRINTED_PHOTO_NUMBER}`,
+      ),
+      isPopular: process.env.NEXT_PUBLIC_STANDARD_PKG_IS_POPULAR === "true",
+      isPickUp: process.env.NEXT_PUBLIC_STANDARD_PKG_IS_PICKUP === "true",
     },
     {
       id: "premium",
-      name: "Premium",
-      priceCents: 1399,
-      currency: "usd",
-      description: ["Digital photo"],
-      isPickUp: true,
-      printedPhotoNumber: 2,
+      name: `${process.env.NEXT_PUBLIC_PREMIUM_PKG_NAME}`,
+      priceCents: Number(
+        `${process.env.NEXT_PUBLIC_PREMIUM_PKG_PRICE_IN_CENT}`,
+      ),
+      currency: `${process.env.NEXT_PUBLIC_PREMIUM_PKG_CURRENCY}`,
+      description: `${process.env.NEXT_PUBLIC_PREMIUM_PKG_DESCRIPTION}`
+        .split("\n")
+        .filter((it) => !!it),
+      printedPhotoNumber: Number(
+        `${process.env.NEXT_PUBLIC_PREMIUM_PKG_PRINTED_PHOTO_NUMBER}`,
+      ),
+      isPopular: process.env.NEXT_PUBLIC_PREMIUM_PKG_IS_POPULAR === "true",
+      isPickUp: process.env.NEXT_PUBLIC_PREMIUM_PKG_IS_PICKUP === "true",
     },
   ] satisfies ProductPackage[],
   perAdditionalPhotoPriceInCent: Number(

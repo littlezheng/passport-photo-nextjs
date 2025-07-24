@@ -14,6 +14,13 @@ export default function ProductPackageCard(props: Props): JSX.Element {
 
   const formattedPrice = formatPrice(pkg.priceCents, pkg.currency);
 
+  const descriptions = [
+    ...pkg.description,
+    pkg.printedPhotoNumber === 0
+      ? undefined
+      : `${pkg.printedPhotoNumber} printed photos(pick up)`,
+  ].filter((it) => it !== undefined);
+
   return (
     <div
       className={`${isSelected ? "bg-blue-600 text-white" : "bg-white"} rounded-xl shadow-lg p-8 relative flex flex-col justify-between`}
@@ -38,7 +45,7 @@ export default function ProductPackageCard(props: Props): JSX.Element {
           {formattedPrice}
         </div>
         <ul className="space-y-3 mb-8">
-          {pkg.description.map((it, i) => (
+          {descriptions.map((it, i) => (
             <li key={`${i}-${it}`} className="flex items-center space-x-2">
               <CheckCircle
                 className={`h-5 w-5 ${isSelected ? "text-blue-200" : "text-green-500"}`}
