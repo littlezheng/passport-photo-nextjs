@@ -7,6 +7,7 @@ export interface OrderModel {
   issues: string[];
   orderAmountInCents?: number;
   orderCurrency?: string;
+  paymentStatus?: string;
   paymentMethod?: string;
   paymentResult?: string;
   paymentTransactionId?: string;

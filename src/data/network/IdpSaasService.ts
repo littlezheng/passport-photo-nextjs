@@ -66,6 +66,9 @@ export interface VerifyStripePaymentGetPhotoResult {
   specCode: string;
   idPhotoOriginalBgPhotoUrl: string;
   idPhotoTempResultPhotoUrl: string;
+  amountInCents?: number;
+  currency?: string;
+  paymentStatus?: string;
 }
 
 export class IdpSaasService {

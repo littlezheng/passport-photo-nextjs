@@ -50,6 +50,9 @@ export class OrderRepository {
       status: "ORDER_EFFECTIVELY",
       croppedNoBgNoWatermarkImageUrl: getOrderRes.idPhotoTempResultPhotoUrl,
       issues: [],
+      orderAmountInCents: getOrderRes.amountInCents,
+      orderCurrency: getOrderRes.currency,
+      paymentStatus: getOrderRes.paymentStatus,
     };
 
     return order;

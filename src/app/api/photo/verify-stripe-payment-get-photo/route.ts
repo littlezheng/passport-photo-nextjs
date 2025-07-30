@@ -22,10 +22,17 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     );
   }
 
+  let amountInCents: number | undefined;
+  let currency: string | undefined;
+  let paymentStatus: string | undefined;
+
   try {
     const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+    amountInCents = paymentIntent.amount;
+    currency = paymentIntent.currency;
+    paymentStatus = paymentIntent.status;
 
-    if (paymentIntent.status !== "succeeded") {
+    if (paymentStatus !== "succeeded") {
       return NextResponse.json(
         { error: "Payment not succeeded" },
         { status: 402 },
@@ -59,6 +66,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
             specCode: data.specCode,
             idPhotoTempResultPhotoUrl: data.idPhotoUrl,
             idPhotoOriginalBgPhotoUrl: data.idPhotoOriginalBgUrl,
+            amountInCents: amountInCents,
+            currency: currency,
+            paymentStatus: paymentStatus,
           },
         }),
         onError: ({ status, responseText }) => ({

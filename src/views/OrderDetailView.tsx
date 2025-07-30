@@ -84,28 +84,28 @@ export default function OrderDetailView() {
       try {
         setGetOrderState(() => "loading");
 
-        const clientSecret = new URLSearchParams(window.location.search).get(
-          "payment_intent_client_secret",
-        );
-        if (!clientSecret) {
-          throw new Error("clientSecret not exist");
+        const url = new URL(window.location.href);
+        const paymentIntentId = url.searchParams.get("payment_intent");
+        if (!paymentIntentId) {
+          throw new Error("paymentIntentId not exist");
         }
+        const cleanUrl = `${url.origin}${url.pathname}?payment_intent=${paymentIntentId}`;
+        window.history.replaceState({}, document.title, cleanUrl);
+
+        const orderData = await orderRepository.getOrder(
+          orderId,
+          paymentIntentId,
+        );
+        const paymentStatus = orderData.paymentStatus;
 
         stripe.current = await loadStripe(constants.stripePublicKey);
         if (stripe.current === null) {
           throw new Error("Create Stripe instance failed");
         }
 
-        const { paymentIntent } =
-          await stripe.current.retrievePaymentIntent(clientSecret);
-        if (paymentIntent === undefined) {
-          throw new Error("Retrieve payment status from Stripe failed");
-        }
-
-        if (paymentIntent.status === "succeeded") {
-          const res = await orderRepository.getOrder(orderId, paymentIntent.id);
-          setOrder(res);
-        } else if (paymentIntent.status === "processing") {
+        if (paymentStatus === "succeeded") {
+          setOrder(orderData);
+        } else if (paymentStatus === "processing") {
           const order: OrderModel = {
             orderId,
             specCode: "",
@@ -113,7 +113,7 @@ export default function OrderDetailView() {
             issues: [],
           };
           setOrder(order);
-        } else if (paymentIntent.status === "requires_payment_method") {
+        } else if (paymentStatus === "requires_payment_method") {
           setPaymentMessage(() => "Payment not success");
         } else {
           setPaymentMessage(() => "An unexpected error occurred.");
