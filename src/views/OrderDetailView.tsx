@@ -522,6 +522,25 @@ export default function OrderDetailView() {
           </NavItem>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-8 mt-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col items-center justify-center gap-2">
+            <p className="text-gray-400 text-sm">
+              &copy; 2024 {constants.studioName}. All rights reserved.
+            </p>
+            <a
+              href="https://idphoto.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors text-sm"
+            >
+              Power by IdPhoto.AI - Passport Photo API provider.
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

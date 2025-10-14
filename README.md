@@ -1,5 +1,7 @@
 # passport-photo-nextjs
 
+**[Powered by IdPhoto.AI - Passport Photo API Provider.](https://idphoto.ai)**
+
 This is a passport photo processing application built with [Next.js](https://nextjs.org), initialized using [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Requirements
