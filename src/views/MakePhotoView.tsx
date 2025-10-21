@@ -46,6 +46,7 @@ import type { OrderModel } from "../models/OrderModel";
 import NavItem from "../lib/nav-item";
 import { computeTotalAndPhotoNumber } from "@/utils/computeTotalAndPhotoNumber";
 import ProductPackageCell from "@/components/ProductPackageCell";
+import goodSampleImage from "@/assets/good3.png";
 
 interface ApiResponse {
   photoUuid: string;
@@ -647,6 +648,52 @@ function MakePhotoView() {
                     </div>
                   </div>
                 )}
+              </div>
+
+              {/* Photo Requirements */}
+              <div className="mb-8 p-6 bg-blue-50 border border-blue-200 rounded-lg">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  Uploaded Photo Requirements:
+                </h3>
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-start space-x-3">
+                    <span className="flex-shrink-0 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+                      1
+                    </span>
+                    <p className="text-gray-700">
+                      Please take a photo with full head and shoulder.
+                    </p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <span className="flex-shrink-0 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+                      2
+                    </span>
+                    <p className="text-gray-700">
+                      Please make sure good and balanced lighting on face.
+                    </p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <span className="flex-shrink-0 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+                      3
+                    </span>
+                    <p className="text-gray-700">
+                      Simple background is preferred.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="border-t border-blue-200 pt-4">
+                  <h4 className="text-md font-semibold text-gray-900 mb-3">
+                    Good Example:
+                  </h4>
+                  <div className="flex justify-center">
+                    <img
+                      src={goodSampleImage.src}
+                      alt="Good example of passport photo"
+                      className="max-w-xs w-full h-auto rounded-lg shadow-md border border-gray-200"
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* Preview Section - Shows both original and processed if available */}
