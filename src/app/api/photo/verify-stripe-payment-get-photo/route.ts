@@ -25,12 +25,15 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   let amountInCents: number | undefined;
   let currency: string | undefined;
   let paymentStatus: string | undefined;
+  let printedPhotoNumber: number | undefined;
 
   try {
     const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
     amountInCents = paymentIntent.amount;
     currency = paymentIntent.currency;
     paymentStatus = paymentIntent.status;
+    printedPhotoNumber =
+      Number(paymentIntent?.metadata?.printedPhotoNumber) || 0;
 
     if (paymentStatus !== "succeeded") {
       return NextResponse.json(
@@ -51,6 +54,23 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       { error: "Invalid payment intent ID" },
       { status: 400 },
     );
+  }
+
+  // Update photo user metadata with order information
+  try {
+    await forwardRequest("POST", "/v2/updateIdPhotoUserMetadata", {
+      photoUuid,
+      userMetadata: {
+        paymentIntentId,
+        amountInCents,
+        currency,
+        printedPhotoNumber,
+        paymentStatus,
+      },
+    });
+  } catch (error) {
+    console.error("Error updating user metadata:", error);
+    // Continue even if metadata update fails - this is not critical
   }
 
   try {
